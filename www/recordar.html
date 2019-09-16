@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MonitorApp2</title>
+</head>
+<body>
+    <img src=".\imagenes\studium.jpg"/>
+	<h3>Recordar clave</h3>
+	<br/>Mensaje:<div id="status">Se enviará un correo con la nueva clave</div>
+	<br/>
+	<br/>
+    Email:<input id="email" type="email" placeholder="Aquí tu cuenta de correo"/><br/><br/>
+	<button id="rememberButton">Recordar clave</button>
+	<button id="returnButton">Volver</button>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() 
+		{
+			$("#rememberButton").click(function()
+			{
+				var url = "https://grupostudium.com/monitoring/recordar.php";
+				var email= $.trim($("#email").val());
+				var loginString ="usuario="+email+"&remember=";
+				$.ajax({
+					type: "POST",crossDomain: true, cache: false,
+					url: url,
+					data: loginString,
+					success: function(data)
+					{
+						if(data != "error") 
+						{
+							$("#status").append(data);
+							alert("Se ha enviado un correo a su dirección con la nueva clave");
+							window.location.href = "index.html";
+						}
+						else
+						{
+							$("#status").text(data);
+						}
+					}
+				});
+				
+			});
+			$("#returnButton").click(function()
+			{
+				window.location.href = "index.html";
+			});
+		});
+    </script>
+</body>
+</html>

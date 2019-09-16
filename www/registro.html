@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+<div class="pages">
+    <div data-page="registro" class="page">
+<img src=".\imagenes\studium.jpg"/>
+	<br/>
+		<br/>
+		Mensaje: <p id="status"></p>
+
+
+        <div class="page-content">
+
+            <div id="page-content-scroll" class="header-clear-larger"><!--Enables this element to be scrolled --> 	
+			
+              <div class="page-login content-boxed content-boxed-padding no-top">
+                <h3 class="uppercase ultrabold full-top no-bottom">Regístrate</h3>
+                <p class="smaller-text half-bottom">Rellena el siguiente formulario...</p>
+                <div class="page-login-field half-top">
+                  <i class="fa fa-user"></i>
+                  <input type="text" placeholder="Nombre" id="nombre" required>
+                  <em>(Requerido)</em>
+                </div>			
+                <div class="page-login-field">
+                  <i class="fa fa-user"></i>
+                  <input type="text" placeholder="Apellidos" id="apellidos" required>
+                  <em>(Requerido)</em>
+                </div>
+				<div class="page-login-field">
+                  <i class="fa fa-address-card-o"></i>
+                  <input type="text" placeholder="DNI/NIF/NIE" id="dni" required>
+                  <em>(Requerido)</em>
+                </div>
+                <div class="page-login-field">
+                  <i class="fa fa-phone"></i>
+                  <input type="phone" placeholder="Teléfono" id="telefono" required>
+                  <em>(Requerido)</em>
+                </div>
+                <div class="page-login-field">
+                  <i class="fa fa-at"></i>
+                  <input type="email" placeholder="Correo electrónico" id="email" required>
+                  <em>(Requerido)</em>
+                </div>
+				<br/>
+                <div class="page-login-links small-bottom">
+                  <a class="forgot center-text" href="index.html"><i class="fa fa-user float-right"></i>¿Ya registrado? Pulsar aquí</a>
+                  <div class="clear"></div>
+                </div>
+				<br/>
+				<button id="returnButton">Volver</button>
+				<button id="registerButton">Registrar Cuenta</button>
+              </div>
+            </div> 
+        </div>
+    </div>
+</div>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var url = "https://grupostudium.com/monitoring/register.php";
+
+            $("#registerButton").click(function(){
+			
+                var nombre = $.trim($("#nombre").val());
+                var apellidos = $.trim($("#apellidos").val());
+				var dni = $.trim($("#dni").val());
+				var telefono = $.trim($("#telefono").val());
+				var email = $.trim($("#email").val());
+                $("#status").text("Creating New Account...");
+                var dataString="nombre="+nombre+"&apellidos="+apellidos+"&dni="+dni+"&telefono="+telefono+"&email="+email+"&register=";
+                $.ajax({
+                    type: "POST",crossDomain: true, cache: false,
+                    url: url,
+                    data: dataString,
+                    success: function(data)
+					{
+                        if(data == "exist")
+                        {
+							$("#status").text("Account is already there");
+						}
+                        else if( data == "error")
+						{
+                            $("#status").text("Register Failed");
+						}
+						else
+						{
+							$("#status").text("Registered success");
+							window.location.href = "index.html";
+						}
+                    }
+                });
+            });
+			$("#returnButton").click(function()
+			{
+				window.location.href = "index.html";
+			});
+        });
+    </script>
+	</body>
+</html>

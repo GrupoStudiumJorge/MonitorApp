@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+<img src=".\imagenes\studium.jpg"/>
+	<br/>
+    Email: <input id="email" type="email" placeholder="Aquí tu cuenta de correo" /> <br/>
+    Clave: <input id="password" type="password" placeholder="Aquí tu clave" /> <br/>
+	<br/>
+    <button id="loginButton">Acceder</button>
+    <button id="registerButton">Registrarse</button>
+	<button id="rememberButton">Olvidé la clave...</button>
+    <br/><br/>Mensaje: <p id="status"></p>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var url = "https://grupostudium.com/monitoring/auth.php";
+            
+            $("#loginButton").click(function(){
+                var email= $.trim($("#email").val());
+                var password= $.trim($("#password").val());
+
+                $("#status").text("Authenticating...");
+                var loginString ="email="+email+"&password="+password+"&login=";
+                $.ajax({
+                    type: "POST",crossDomain: true, cache: false,
+                    url: url,
+                    data: loginString,
+                    success: function(data){
+                        if(data == "success") 
+						{
+                            $("#status").text("Login Success...!");
+                            localStorage.loginstatus = "true";
+							localStorage.loginuser = email;
+                            window.location.href = "welcome.html";
+                        }
+						else
+                        {
+                            $("#status").text(data);
+                        }
+                    }
+                });
+            });
+
+            $("#registerButton").click(function()
+			{
+				window.location.href = "registro.html";
+            });
+			
+			 $("#rememberButton").click(function()
+			{
+				window.location.href = "recordar.html";
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Configure</title>
+</head>
+<body>
+	<img src=".\imagenes\studium.jpg"/>
+        <div class="navbar">
+            <div class="navbar-inner">	
+                <div class="right">
+                    <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                </div>
+            </div>
+        </div>
+		<br/>Mensaje: <p id="status"></p>
+        <div class="page-content">
+            <div id="page-content-scroll" class="header-clear-larger"><!--Enables this element to be scrolled --> 	
+			
+              <div class="page-login content-boxed content-boxed-padding no-top">
+                <h3>Actualizar contraseña</h3>
+                <p class="smaller-text half-bottom">Con el siguiente formulario puedes cambiar tu contraseña</p>
+                <div class="page-login-field half-top">
+                  <i class="fa fa-user"></i>
+                  <input type="password" placeholder="Clave Actual" id="claveActual" required>
+                  <em>(Requerido)</em>
+                </div>			
+                <div class="page-login-field">
+                  <i class="fa fa-user"></i>
+                  <input type="password" placeholder="Clave Nueva" id="claveNueva" required>
+                  <em>(Requerido)</em>
+                </div>
+				<div class="page-login-field">
+                  <i class="fa fa-address-card-o"></i>
+                  <input type="password" placeholder="Repetir Clave Nueva" id="repetirClave" required>
+                  <em>(Requerido)</em>
+                </div>
+				<br/>
+				 <button id="changeButton">Cambiar Clave</button>
+				 <button id="returnButton">Volver</button>
+				 <button id="exitButton">Cerrar Sesión</button>
+              </div>
+            </div> 
+        </div>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() 
+		{
+			if(localStorage.loginstatus == "false" || localStorage.loginuser == "")
+			{
+				window.location.href = "index.html";
+			}
+			else
+			{
+				var url = "https://grupostudium.com/monitoring/configure.php";
+
+				$("#changeButton").click(function()
+				{
+					var claveActual = $.trim($("#claveActual").val());
+					var claveNueva = $.trim($("#claveNueva").val());
+					var repetirClave = $.trim($("#repetirClave").val());
+				
+					$("#status").text("Updating New Account...");
+					var dataString="usuario="+localStorage.loginuser+"&claveActual="+claveActual+"&claveNueva="+claveNueva+"&repetirClave="+repetirClave+"&update=";
+					$.ajax({
+						type: "POST",crossDomain: true, cache: false,
+						url: url,
+						data: dataString,
+						success: function(data)
+						{
+							if(data == "success")
+								$("#status").text("Clave cambiada correctamente");
+							else if( data == "notEqual")
+								$("#status").text("Claves nuevas no coinciden");
+							else if( data == "notNow")
+								$("#status").text("Clave actual no es correcta");
+							else if( data == "notSecure")
+								$("#status").text("Clave nueva no es segura: Mínimo 8 caracteres incluyendo números, mayúsculas y minúsculas");
+							else if(data == "error")
+								$("#status").text("Update Failed");
+							else
+								 $("#status").text(data);
+						}
+					});
+				});
+				$("#exitButton").click(function()
+				{
+					localStorage.loginstatus = "false";
+					localStorage.loginuser = "";
+					window.location.href = "index.html";
+				});
+				$("#returnButton").click(function()
+				{
+					window.location.href = "welcome.html";
+				});
+			}
+        });
+    </script>
+</body>
+</html>

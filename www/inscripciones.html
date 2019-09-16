@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MonitorApp2</title>
+</head>
+<body>
+    <h3>Mis Inscripciones</h3>
+	<img src=".\imagenes\studium.jpg"/>
+	<br/>
+	Mensaje: <div id="status"></div>
+	<br/>
+	<button id="returnButton">Volver</button>
+	<button id="configureButton">Configurar Cuenta</button>
+	<button id="exitButton">Cerrar Sesión</button>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function() 
+		{
+			if(localStorage.loginstatus == "false" || localStorage.loginuser == "")
+			{
+				window.location.href = "index.html";
+			}
+			else
+			{
+				var url = "https://grupostudium.com/monitoring/consultaParticular.php";
+				
+				var loginString ="usuario="+localStorage.loginuser+"&select=";
+				$.ajax({
+					type: "POST",crossDomain: true, cache: false,
+					url: url,
+					data: loginString,
+					success: function(data)
+					{
+						if(data != "error") 
+						{
+							$("#status").append(data);
+						}
+						else
+						{
+							$("#status").text(data);
+						}
+					}
+				});
+				$("#configureButton").click(function()
+				{
+					window.location.href = "configure.html";
+				});
+				$("#returnButton").click(function()
+				{
+					window.location.href = "welcome.html";
+				});
+				$("#exitButton").click(function()
+				{
+					localStorage.loginstatus = "false";
+					localStorage.loginuser = "";
+					window.location.href = "index.html";
+				});
+			}
+		});
+    </script>
+</body>
+</html>
