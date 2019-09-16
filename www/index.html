@@ -5,17 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
+	<style>
+		.centrado
+		{
+			text-align:center;
+		}
+	</style>
 </head>
-<body>
-<img src=".\imagenes\studium.jpg"/>
-	<br/>
-    Email: <input id="email" type="email" placeholder="Aquí tu cuenta de correo" /> <br/>
-    Clave: <input id="password" type="password" placeholder="Aquí tu clave" /> <br/>
-	<br/>
-    <button id="loginButton">Acceder</button>
-    <button id="registerButton">Registrarse</button>
-	<button id="rememberButton">Olvidé la clave...</button>
-    <br/><br/>Mensaje: <p id="status"></p>
+<body style="text-align:'center'">
+	<div class="centrado">
+		<img src=".\imagenes\studium.jpg"/>
+		<br/>
+		Email: <input id="email" type="email" placeholder="Aquí tu cuenta de correo" /> <br/>
+		Clave: <input id="password" type="password" placeholder="Aquí tu clave" /> <br/>
+		<br/>
+		<button id="loginButton">Acceder</button>
+		<button id="registerButton">Registrarse</button>
+		<button id="rememberButton">Olvidé la clave...</button>
+		<br/>
+		<br/>
+		Mensaje: <p id="status"></p>
+	</div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function() {
