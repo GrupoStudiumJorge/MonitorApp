@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MonitorApp2</title>
+	<style>
+		.centrado
+		{
+			text-align:center;
+		}
+	</style>
 </head>
 <body>
+<div class="centrado">
     <h3>Ofertas Disponibles</h3>
 	<img src=".\imagenes\studium.jpg"/>
 	<br/>
 	<p>Pulsar en el botón verde para inscribirse en una Oferta</p>
-	Mensaje: <div id="status"></div>
+	Mensaje: <div id="status" class="centrado"></div>
 	<br/>
 	<button id="inscripcionesButton">Mis Inscripciones</button>
 	<button id="configureButton">Configurar Cuenta</button>
 	<button id="exitButton">Cerrar Sesión</button>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function() 

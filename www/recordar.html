@@ -5,17 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MonitorApp2</title>
+	<style>
+		.centrado
+		{
+			text-align:center;
+		}
+	</style>
 </head>
 <body>
+	<div class="centrado">
     <img src=".\imagenes\studium.jpg"/>
 	<h3>Recordar clave</h3>
 	<br/>Mensaje:<div id="status">Se enviará un correo con la nueva clave</div>
 	<br/>
 	<br/>
-    Email:<input id="email" type="email" placeholder="Aquí tu cuenta de correo"/><br/><br/>
+    Email:<input id="email" type="email" placeholder="Aquí su cuenta de correo"/><br/><br/>
 	<button id="rememberButton">Recordar clave</button>
 	<button id="returnButton">Volver</button>
-	
+	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function() 
